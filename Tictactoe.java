@@ -1,37 +1,46 @@
 import java.util.*;
 public class Tictactoe {
+
+
 	static Scanner userInput = new Scanner(System.in);
 	static char userLetter;
 	static char computerLetter;
 	static char[] board = new char[10];
-	static int count;
+	static int count = 0;
 	static int index;
 	static int chance;
+
 	static ArrayList<int[]> checkCondition = new ArrayList<>();
+
 	public static void conditionsForWin() {
-		int[] row1 = {1, 2, 3};
-		int[] row2 = {4, 5, 6};
-		int[] row3 = {7, 8, 9};
-		int[] col1 = {1, 4, 7};
-		int[] col2 = {2, 5, 8};
-		int[] col3 = {3, 6, 9};
-		int[] diag1 = {1, 5, 9};
-		int[] diag2 = {3, 5, 7};
-		checkCondition.add(row1);
-		checkCondition.add(row2);
-		checkCondition.add(row3);
-		checkCondition.add(col1);
-		checkCondition.add(col2);
-		checkCondition.add(col3);
-		checkCondition.add(diag1);
-		checkCondition.add(diag2);
+
+	int[] cond0 = {1, 2, 3};
+		int[] cond1 = {4, 5, 6};
+		int[] cond2 = {7, 8, 9};
+		int[] cond3 = {1, 4, 7};
+		int[] cond4 = {2, 5, 8};
+		int[] cond5 = {3, 6, 9};
+		int[] cond6 = {1, 5, 9};
+		int[] cond7 = {3, 5, 7};
+
+		checkCondition.add(cond0);
+		checkCondition.add(cond1);
+		checkCondition.add(cond2);
+		checkCondition.add(cond3);
+		checkCondition.add(cond4);
+		checkCondition.add(cond5);
+		checkCondition.add(cond6);
+		checkCondition.add(cond7);
 	}
-	public char[] createBoard() {
+
+	public void createBoard() {
+
 		for (  int i=1 ; i < 10; i++ ) {
 			board[i] = ' ';
 		}
-		return board;
+
 	}
+
 	public static void chooseLetter() {
 		System.out.print("Choose your Letter X or O : ");
 		userLetter = userInput.next().toUpperCase().charAt(0);
@@ -59,18 +68,23 @@ public class Tictactoe {
 			board[location] = userLetter;
 		}
 	}
+
 	public static void toss() {
-		System.out.println("Toss Time - Press 0 for Head And 1 for Tail: ");
+
+
+	System.out.println("Toss Time press 0 ");
 		int check = userInput.nextInt();
-		int chance =(int) (Math.random() * 2);
+
+	chance =(int) (Math.random() * 2);
 		if (chance == check) {
 			System.out.println("You Won the Toss");
-			count = 0;
-		}else {
+
+	}else {
 			System.out.println("You Lose the Toss");
-			count = 1;
-		}
+
 	}
+	}
+
 	public static char winCheck() {
 		final int WIN_CONDITION = 3;
 		for (int index = 0; index < checkCondition.size(); index++) {
@@ -88,7 +102,7 @@ public class Tictactoe {
 						return 'O';
 					}
 				}
-			}
+	}
 		}
 		return ' ';
 	}
@@ -122,15 +136,15 @@ public class Tictactoe {
 			}
 		}
 	}
+	public static boolean checkCond(char alpha) {
 
-	public static boolean checkCond(char letter) {
-
-		for (int index = 0; index < checkCondition.size(); index++) {
+	for (index = 0; index < checkCondition.size(); index++) {
 			int sum = 0;
 			for (int j = 0; j < checkCondition.get(index).length; j++) {
-				if (board[checkCondition.get(index)[j]] == letter) {
 
-		sum += 1;
+	
+	if (board[checkCondition.get(index)[j]] == alpha) {
+					sum += 1;
 					if (sum == 2) {
 						return true;
 					}
@@ -161,13 +175,13 @@ public class Tictactoe {
 			}
 		}
 		return false;
-
-
 	}
-
 	public static void compMove() {
 
 	int[] corner = {1, 3, 7, 9};
+	int centre = 5;
+	int[] sides = {2, 4, 6, 8};
+
 		boolean check = true;
 			for (int l=0; l<corner.length; l++) {
 				if(board[corner[l]] == ' ') {
@@ -176,20 +190,30 @@ public class Tictactoe {
 					break;
 				}
 			}
+			if (check) {
+				if (board[centre] == ' ') {
+					board[centre] = computerLetter;
+					check = false;
+				}
+			}
+			if (check) {
+				for(int l=0; l<sides.length; l++) {
+					if (board[sides[l]] == ' ') {
+						board[sides[l]] = computerLetter;
+						break;
+					}
+				}
+			}
 	}
 
 	 public static void computerTurn() {
-
 		if (compWinning()) {
 		}else if(block()) {
 		}else {
 			compMove();
 		}
 	}
-
-
 	public static void main(String args[]) {
-
 			System.out.println("Welcome to TicTacToeGame");
 			Tictactoe ticTacToeGame = new Tictactoe();
 			conditionsForWin();
