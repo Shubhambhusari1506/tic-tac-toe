@@ -1,4 +1,6 @@
 import java.util.*;
+
+
 public class Tictactoe {
 	static Scanner userInput = new Scanner(System.in);
 	static char userLetter;
@@ -32,19 +34,37 @@ public class Tictactoe {
 		int location = userInput.nextInt();
 		if (board[location] != ' ') {
 			System.out.println("Position Already Occupied");
+			makeMove();
 		}else {
 			board[location] = userLetter;
 		}
 	}
 
+	public static void toss() {
+
+		System.out.println("Toss Time - Press 0 for Head And 1 for Tail: ");
+		int check = userInput.nextInt();
+		int chance =(int) (Math.random() * 2);
+		if (chance == check) {
+			System.out.println("You Won the Toss");
+			System.out.println("Your Turn");
+			makeMove();
+			showBoard();
+		}else {
+			System.out.println("You Lose the Toss");
+			System.out.println("Computer Turn");
+		}
+	}
+
 	public static void main(String[] args){
+
 		System.out.println("Welcome to TicTacToeGame");
 		Tictactoe ticTacToeGame = new Tictactoe();
 		ticTacToeGame.createBoard();
 		chooseLetter();
       System.out.println("Computer Letter: " +computerLetter);
 		showBoard();
-		makeMove();
-		showBoard();
+
+			toss();
 	}
 }
