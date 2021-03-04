@@ -213,15 +213,26 @@ public class Tictactoe {
 			compMove();
 		}
 	}
-	public static void main(String args[]) {
-			System.out.println("Welcome to TicTacToeGame");
-			Tictactoe ticTacToeGame = new Tictactoe();
+	public static void execute() {
+
+			Tictactoe tictactoeGame = new Tictactoe();
 			conditionsForWin();
-			ticTacToeGame.createBoard();
+			tictactoeGame.createBoard();
 			chooseLetter();
    	   System.out.println("Computer Letter: " +computerLetter);
 			showBoard();
 			toss();
 			turn();
+	}
+
+	public static void main(String[] args) {
+		try {
+			System.out.println("Welcome to TicTacToeGame");
+			execute();
+		}catch(Exception e) {
+			System.out.println("Invalid Inputs Play Again");
+			execute();
+		}
+
 	}
 }
