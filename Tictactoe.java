@@ -122,16 +122,15 @@ public class Tictactoe {
 			}
 		}
 	}
-	public static void computerTurn() {
-		if (compWinning()) {
-		}
-	}
+
 	public static boolean checkCond(char letter) {
+
 		for (int index = 0; index < checkCondition.size(); index++) {
 			int sum = 0;
 			for (int j = 0; j < checkCondition.get(index).length; j++) {
 				if (board[checkCondition.get(index)[j]] == letter) {
-					sum = sum + 1;
+
+		sum += 1;
 					if (sum == 2) {
 						return true;
 					}
@@ -152,7 +151,6 @@ public class Tictactoe {
 		return false;
 	}
 	public static boolean block() {
-
 		if (checkCond(userLetter)) {
 			for (int l = 0; l < checkCondition.get(index).length; l++) {
 				if (board[checkCondition.get(index)[l]] == ' ') {
@@ -163,12 +161,36 @@ public class Tictactoe {
 			}
 		}
 		return false;
+
+
 	}
+
+	public static void compMove() {
+
+	int[] corner = {1, 3, 7, 9};
+		boolean check = true;
+			for (int l=0; l<corner.length; l++) {
+				if(board[corner[l]] == ' ') {
+					board[corner[l]] = computerLetter;
+				check = false;
+					break;
+				}
+			}
+	}
+
+	 public static void computerTurn() {
+
+		if (compWinning()) {
+		}else if(block()) {
+		}else {
+			compMove();
+		}
+	}
+
 
 	public static void main(String args[]) {
 
 			System.out.println("Welcome to TicTacToeGame");
-
 			Tictactoe ticTacToeGame = new Tictactoe();
 			conditionsForWin();
 			ticTacToeGame.createBoard();
